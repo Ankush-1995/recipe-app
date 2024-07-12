@@ -23,8 +23,11 @@ RUN python -m venv /py && \
     apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
-        --no-create-home \
+        --home /home/django-user \
         django-user
+
+# Ensure the /app directory is writable by django-user
+RUN chown -R django-user:django-user /app
 
 ENV PATH="/py/bin:$PATH"
 
